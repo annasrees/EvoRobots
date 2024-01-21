@@ -9,8 +9,15 @@ z = .5
 
 def Create_world():
     pyrosim.Start_SDF("world.sdf") 
-    pyrosim.Send_Cube(name="Box", pos=[x, y, z] , size=[length, width, height])      
+    pyrosim.Send_Cube(name="Box", pos=[x + 4, y + 4, z] , size=[length, width, height])      
+    pyrosim.End()
+
+def Create_Robot():
+    pyrosim.Start_URDF("body.urdf")
+    '''Storing a description of the robot's body here'''
+    pyrosim.Send_Cube(name="Torso", pos=[x, y, z] , size=[length, width, height])
     pyrosim.End()
 
 Create_world()
+Create_Robot()
 
