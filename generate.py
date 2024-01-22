@@ -19,8 +19,10 @@ def Create_Robot():
     pyrosim.Send_Cube(name="Link0", pos=[x, y, z] , size=[length, width, height]) #torso L0
     pyrosim.Send_Joint( name = "Link0_Link1" , parent= "Link0" , child = "Link1" , type = "revolute", position = [0, 0, 1.0]) #torso_leg joint L0_L1
     pyrosim.Send_Cube(name="Link1", pos=[x, y, z] , size=[length, width, height]) #leg L1
-    pyrosim.Send_Joint( name = "Link1_Link2" , parent= "Link1" , child = "Link2" , type = "revolute", position = [0, 0, 1.0])
+    pyrosim.Send_Joint( name = "Link1_Link2" , parent= "Link1" , child = "Link2" , type = "revolute", position = [0, 0, 1.0]) #joint L1_l2
     pyrosim.Send_Cube(name="Link2", pos=[x, y, z] , size=[length, width, height]) #L2
+    pyrosim.Send_Joint( name = "Link2_Link3" , parent= "Link2" , child = "Link3" , type = "revolute", position = [0, 0.5, 0.5]) #joint L2_l3
+    pyrosim.Send_Cube(name="Link3", pos=[0, 0.5, 0] , size=[length, width, height]) #L3
     pyrosim.End()
 
 Create_world()
