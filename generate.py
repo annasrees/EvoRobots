@@ -23,6 +23,14 @@ def Create_Robot():
     pyrosim.Send_Cube(name="Link2", pos=[x, y, z] , size=[length, width, height]) #L2
     pyrosim.Send_Joint( name = "Link2_Link3" , parent= "Link2" , child = "Link3" , type = "revolute", position = [0, 0.5, 0.5]) #joint L2_l3
     pyrosim.Send_Cube(name="Link3", pos=[0, 0.5, 0] , size=[length, width, height]) #L3
+    pyrosim.Send_Joint( name = "Link3_Link4" , parent= "Link3" , child = "Link4" , type = "revolute", position = [0, 1, 0]) 
+    pyrosim.Send_Cube(name="Link4", pos=[0, 0.5, 0] , size=[length, width, height])
+    pyrosim.Send_Joint( name = "Link4_Link5" , parent= "Link4" , child = "Link5" , type = "revolute", position = [0, 0.5, -0.5]) #TODO: change this
+    # pyrosim.Send_Cube(name="Link5", pos=[0, 0.5, 0.5] , size=[length, width, height])
+    pyrosim.Send_Cube(name="Link5", pos=[0, 0, -0.5] , size=[length, width, height]) #TODO: change this
+    pyrosim.Send_Joint( name = "Link5_Link6" , parent= "Link5" , child = "Link6" , type = "revolute", position = [0, 0, -1.0]) #TODO: change this
+    pyrosim.Send_Cube(name="Link6", pos=[0, 0, -0.5] , size=[length, width, height])#TODO: change this
+    # pyrosim.Send_Joint( name = "Link6_Link5" , parent= "Link6" , child = "Link5" , type = "revolute", position = [0, 1, 0]) #TODO: change this
     pyrosim.End()
 
 Create_world()
