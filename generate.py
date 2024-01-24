@@ -30,7 +30,11 @@ def Create_Robot():
     pyrosim.Send_Joint( name = "Link5_Link6" , parent= "Link5" , child = "Link6" , type = "revolute", position = [0, 0, -1.0]) 
     pyrosim.Send_Cube(name="Link6", pos=[0, 0, -0.5] , size=[length, width, height])
     '''
-
+    # pyrosim.Send_Cube(name="Torso", pos=[1.5, 0, 1.5] , size=[length, width, height]) #torso L0
+    # pyrosim.Send_Cube(name="BackLeg", pos=[-0.5, 0, -0.5] , size=[length, width, height]) #torso L0
+    # pyrosim.Send_Cube(name="FrontLeg", pos=[0.5, 0, -0.5] , size=[length, width, height]) #torso L0
+    # pyrosim.Send_Joint( name = "Torso_backleg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [1, 0, 1]) #root link
+    # pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [1, 0, 0]) #root link
     pyrosim.Send_Cube(name="Torso", pos=[1.5,0,1.5] , size=[length, width, height]) #torso L0
     pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [1, 0, 1]) #root link
     pyrosim.Send_Cube(name="BackLeg", pos=[-0.5,0,-0.5] , size=[length, width, height])
