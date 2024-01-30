@@ -6,9 +6,13 @@ import numpy as np
 import math
 import random
 
-amplitude = (np.pi / 4)
-frequency = 1
-phaseOffset = 0
+backAmplitude = (np.pi/4)
+backFrequency = 10
+backPhaseOffset = np.pi/4 #changed - step 48
+
+frontAmplitude = (np.pi/4)
+frontFrequency = 10
+frontPhaseOffset = 0
 
 physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -21,17 +25,25 @@ backLegSensorValues = np.zeros(1000)
 frontLegSensorValues = np.zeros(1000)
 
 sinVals = np.linspace(0, (2 * np.pi), 1000)
-targetAngles = np.zeros(1000)
+backTargetAngles = np.zeros(len(sinVals))
+frontTargetAngles = np.zeros(len(sinVals))
+
 for i in range(len(sinVals)):
-    targetAngles[i] = amplitude * np.sin(frequency * sinVals[i] + phaseOffset)
-    print(targetAngles[i])
+    backTargetAngles[i] = backAmplitude * np.sin(backFrequency * sinVals[i] + backPhaseOffset)
+    frontTargetAngles[i] = frontAmplitude * np.sin(frontFrequency * sinVals[i] + frontPhaseOffset)
 
+#backleg
+backOutFile = open("../EvoRobots/data/backLegSensorData.npy", "wb") 
+np.save(backOutFile, backTargetAngles)
+#fronleg
+frontOutFile = open("../EvoRobots/data/frontLegSensorData.npy", "wb") 
+np.save(frontOutFile, frontTargetAngles)
+backOutFile.close()
+frontOutFile.close()
+# sinData = open("../EvoRobots/data/SinData.npy", "wb")
+# np.save(sinData, targetAngles)
+# sinData.close()
 
-sinData = open("../EvoRobots/data/SinData.npy", "wb")
-np.save(sinData, targetAngles)
-sinData.close()
-
- 
 for i in range(1000):
     p.stepSimulation()
     #adjusting targetAngles - assignment 5 step 40
@@ -41,21 +53,13 @@ for i in range(1000):
     pyrosim.Set_Motor_For_Joint(bodyIndex = robotId,
                                 jointName = "Torso_BackLeg",
                                 controlMode = p.POSITION_CONTROL,
-                                targetPosition = targetAngles[i],
+                                targetPosition = backTargetAngles[i],
                                 maxForce = 500)
     pyrosim.Set_Motor_For_Joint(bodyIndex = robotId,
                                 jointName = "Torso_FrontLeg",
                                 controlMode = p.POSITION_CONTROL,
-                                targetPosition = targetAngles[i],
+                                targetPosition = frontTargetAngles[i],
                                 maxForce = 500)
     time.sleep(1/60)
 p.disconnect()
-#backleg
-outFile = open("../EvoRobots/data/backLegSensorData.npy", "wb") 
-np.save(outFile, backLegSensorValues)
-#fronleg
-outFile = open("../EvoRobots/data/frontLegSensorData.npy", "wb") 
-np.save(outFile, frontLegSensorValues)
-outFile.close()
 
-print(backLegSensorValues)
