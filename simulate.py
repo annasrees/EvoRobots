@@ -3,17 +3,19 @@ import pybullet_data
 import time
 import pyrosim.pyrosim as pyrosim
 import numpy as np
-import math
-import random
+import constants as c
 
+# backleg mvmt
 backAmplitude = (1)
 backFrequency = 10
 backPhaseOffset = np.pi / 4 #changed - step 48
 
+# frontleg mvmt
 frontAmplitude = (1)
 frontFrequency = 10
 frontPhaseOffset = 0
 
+# staring up world
 physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
 p.setGravity(0,0,-9.8)
@@ -21,10 +23,11 @@ planeId = p.loadURDF("plane.urdf")
 robotId = p.loadURDF("body.urdf")
 p.loadSDF("world.sdf")
 pyrosim.Prepare_To_Simulate(robotId)
-backLegSensorValues = np.zeros(1000)
-frontLegSensorValues = np.zeros(1000)
+backLegSensorValues = c.VECINIT
+frontLegSensorValues = c.VECINIT
 
-sinVals = np.linspace(0, (2 * np.pi), 1000)
+# initializing tagret angle vectors
+sinVals = c.SINVALS
 backTargetAngles = np.zeros(len(sinVals))
 frontTargetAngles = np.zeros(len(sinVals))
 
@@ -59,7 +62,7 @@ for i in range(1000):
                                 jointName = "Torso_FrontLeg",
                                 controlMode = p.POSITION_CONTROL,
                                 targetPosition = frontTargetAngles[i],
-                                maxForce = 500)
+                                maxForce = c.MAXFORCE)
     time.sleep(1/60)
 p.disconnect()
 
