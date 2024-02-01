@@ -21,7 +21,7 @@ class SIMULATION:
         # self.world.planeId
 
         self.robot = ROBOT(2, 2)
-        pyrosim.Prepare_To_Simulate(self.robot.robotId) #this is supposed to be robotId
+ #this is supposed to be robotId
         self.planeId = p.loadURDF("plane.urdf")
 
 
@@ -35,8 +35,8 @@ class SIMULATION:
         frontPhaseOffset = 0
 
 
-        backLegSensorValues = np.zeros(1000)
-        frontLegSensorValues = np.zeros(1000)
+        # backLegSensorValues = np.zeros(1000)
+        # frontLegSensorValues = np.zeros(1000)
 
         sinVals = np.linspace(0, (2 * np.pi), 1000)
         backTargetAngles = np.zeros(len(sinVals))
@@ -63,4 +63,6 @@ class SIMULATION:
             #                             targetPosition = frontTargetAngles[i],
             #                             maxForce = 500)
             time.sleep(1/60)
-            print(i)
+
+        def __del__(self):
+            p.disconnect()

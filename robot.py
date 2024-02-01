@@ -3,16 +3,20 @@ from motor import MOTOR
 import pybullet as p
 import pybullet_data
 import pyrosim.pyrosim as pyrosim
+import numpy as np
 
 class ROBOT:
-    def __init__(self):
+    def __init__(self, sensors, motors):
         # empty dictionaries
-        '''
-        31. cut the statements that load and prepare to simulate 
-        body.urdf and paste them into ROBOT's constructor. 
-        Remember to add the self. prefix where needed.
-        '''
         self.robotId = p.loadURDF("body.urdf")
-        self.sensors = {}
+        pyrosim.Prepare_To_Simulate(self.robotId)
+        self.Prepare_To_Sense()
+
         self.motors = {}
+
+    def Prepare_To_Sense(self):
+        self.sensors = {}
+        for linkName in pyrosim.linkNamesToIndices:
+            self.sensors[linkName] = SENSOR(linkName)
+
 
