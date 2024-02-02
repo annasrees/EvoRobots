@@ -1,5 +1,5 @@
 import numpy as np
-# to be changed
+
 class CONSTANTS:
     def __init__(self):
         amplitude = 1
