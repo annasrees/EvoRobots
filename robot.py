@@ -11,12 +11,9 @@ class ROBOT:
 
         # empty dictionaries
         self.robotId = p.loadURDF("body.urdf")
-        # TODO: put Prepare_To_Simulate() in here?
         pyrosim.Prepare_To_Simulate(self.robotId)
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
-
-
 
     def Prepare_To_Sense(self):
         self.sensors = {} #FILLs THESE WITH INSTANCES OF SENSORS
@@ -37,19 +34,30 @@ class ROBOT:
         phaseOffset = 0
         sinVals = np.linspace(0, (2 * np.pi), 1000)
         '''
-        self.amplitude = 1
-        self.frequency = 10
-        self.offset = 0
-        self.sinVals = np.linspace(0, (2 * np.pi), 1000)
-        self.motors = {} #FILLs THESE WITH INSTANCES OF MOTORS
-        self.motorValues = np.zeros(1000)
-   
-        for jointName in pyrosim.jointNamesToIndices:
-            self.motors[jointName] = MOTOR(jointName)
-     
-        for i in range(len(self.sinVals)):
-            self.motorValues[i] = self.amplitude * np.sin(self.frequency * self.sinVals[i] + self.offset)
 
+        self.motors = {} #FILLs THESE WITH INSTANCES OF MOTORS
+        
+        for jointName in pyrosim.jointNamesToIndices:
+            self.sinVals = np.linspace(0, (2 * np.pi), 1000) #initializing inside the for loop?
+            self.motors[jointName] = MOTOR(jointName)
+            self.motorValues = np.zeros(1000)
+
+            if jointName == "Torso_FrontLeg":
+                # print("I found it!")
+                self.amplitude = 1
+                frequency = 10
+                self.offset = 0
+            else:
+                # print("I also found this one too")
+                self.amplitude = 1
+                frequency = 5
+                self.offset = 0
+
+            for i in range(len(self.sinVals)): 
+                print(frequency)
+                self.motorValues[i] = self.amplitude * np.sin(frequency * self.sinVals[i] + self.offset)
+
+        # print(len(self.motors))
     def Act(self, t):
         for i in self.motors:
             self.motors[i].Set_Value(self, t)
