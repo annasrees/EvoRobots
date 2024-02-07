@@ -5,6 +5,7 @@ import pybullet_data
 import pyrosim.pyrosim as pyrosim
 import numpy as np
 from constants import CONSTANTS as c
+from pyrosim.neuralNetwork import NEURAL_NETWORK
 
 class ROBOT:
     def __init__(self, sensors, motors):
@@ -14,6 +15,7 @@ class ROBOT:
         pyrosim.Prepare_To_Simulate(self.robotId)
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
+        self.nn = NEURAL_NETWORK("brain.nndf")
 
     def Prepare_To_Sense(self):
         self.sensors = {} #FILLs THESE WITH INSTANCES OF SENSORS
@@ -42,22 +44,13 @@ class ROBOT:
             self.motors[jointName] = MOTOR(jointName)
             self.motorValues = np.zeros(1000)
 
-            if jointName == "Torso_FrontLeg":
-                # print("I found it!")
-                self.amplitude = 1
-                frequency = 10
-                self.offset = 0
-            else:
-                # print("I also found this one too")
-                self.amplitude = 1
-                frequency = 5
-                self.offset = 0
-
-            for i in range(len(self.sinVals)): 
-                print(frequency)
-                self.motorValues[i] = self.amplitude * np.sin(frequency * self.sinVals[i] + self.offset)
 
         # print(len(self.motors))
     def Act(self, t):
         for i in self.motors:
             self.motors[i].Set_Value(self, t)
+
+
+    def Think(self):
+        self.nn.Print()
+

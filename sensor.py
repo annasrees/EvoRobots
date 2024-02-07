@@ -13,3 +13,14 @@ class SENSOR:
         if t == 1000:
             print(self.values)
         return self.values[t]
+
+        
+    def Save_Values(self):
+        '''
+        handles the saving of sensor values
+        '''
+        outFile = open("../EvoRobots/data/" + self.linkName + "Data.npy", "wb")
+        np.save(outFile, self.values)
+        outFile.close()
+
+        
