@@ -16,9 +16,10 @@ class SIMULATION:
         p.setGravity(0,0,-9.8)
 
         p.loadSDF("world.sdf")
+        self.planeId = p.loadURDF("plane.urdf")
         self.world = WORLD()
         self.robot = ROBOT(2, 2)
-        self.planeId = p.loadURDF("plane.urdf")
+
 
 
     def Run(self):
@@ -27,7 +28,8 @@ class SIMULATION:
             self.robot.Sense(t)
             self.robot.Act(t)
 
-            time.sleep(1/60)
+            time.sleep(1/60) 
+
 
     def __del__(self):
         p.disconnect()
