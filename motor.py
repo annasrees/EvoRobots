@@ -40,10 +40,10 @@ class MOTOR:
                                     targetPosition = desiredAngle,
                                     maxForce = 500)
         
-    def Save_Values(self, robot):
-        '''
-        handles the saving of motor values
-        '''
-        outFile = open("../EvoRobots/data/" + self.jointName + "Data.npy", "wb")
-        np.save(outFile, self.motorValues)
-        outFile.close()
+    # def Save_Values(self, robot):
+    #     '''
+    #     handles the saving of motor values
+    #     '''
+    #     outFile = open("../EvoRobots/data/" + self.jointName + "Data.npy", "wb")
+    #     np.save(outFile, self.motorValues)
+    #     outFile.close()
