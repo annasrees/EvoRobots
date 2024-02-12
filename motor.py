@@ -19,12 +19,12 @@ class MOTOR:
         if jointName == "Torso_FrontLeg":
             # print("I found it!")
             self.amplitude = 1
-            self.frequency = 10
+            self.frequency = 1
             self.offset = 0
         else:
             # print("I also found this one too")
             self.amplitude = 1
-            self.frequency = 5
+            self.frequency = 1
             self.offset = 0
 
         for i in range(len(self.sinVals)): 

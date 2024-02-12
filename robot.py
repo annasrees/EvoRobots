@@ -49,12 +49,16 @@ class ROBOT:
     def Act(self, t):
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
+                print(self.motors)
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 desiredAngle = self.nn.Get_Value_Of(neuronName)
-                for i in self.motors:
-                    self.motors[i].Set_Value(self, desiredAngle)
-                print(neuronName + ", " + jointName)
+                print("desired angle:")
                 print(desiredAngle)
+                # got rid of if statement
+                motor_to_set = self.motors.get(jointName)
+                motor_to_set.Set_Value(self, desiredAngle)
+                # print(neuronName + ", " + jointName)
+                # print(desiredAngle)
         # for i in self.motors:
         #     self.motors[i].Set_Value(self, t)
 
