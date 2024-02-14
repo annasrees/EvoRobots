@@ -17,7 +17,8 @@ class HILL_CLIMBER:
         self.Mutate()
 
         self.child.Evaluate()
-        exit()
+
+        self.Print()
 
         self.Select()
 
@@ -28,7 +29,11 @@ class HILL_CLIMBER:
         self.child.Mutate()
 
     def Select(self):
-        pass
+        if(self.child.fitness > self.parent.fitness):
+            self.parent = self.child
+
+    def Print(self):
+        print("Parent vs Child fitness: ", self.parent.fitness,  ", ",  self.child.fitness)
 
 
         
