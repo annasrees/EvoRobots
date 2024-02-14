@@ -1,15 +1,21 @@
 import numpy as np
 import pyrosim.pyrosim as pyrosim
+import os
 class SOLUTION:
     def __init__(self):
         self.weights = np.random.rand(3,2)
         self.weights = self.weights * 2 - 1
-    def Evaluate(self):
-        pass
+
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf") 
         pyrosim.End()
     def Create_Body(self):
+        length = 1
+        width = 1
+        height = 1
+        x = 0
+        y = 0
+        z = .5
         pyrosim.Start_URDF("body.urdf")
 
         pyrosim.Send_Cube(name="Torso", pos=[1.5,0,1.5] , size=[length, width, height]) #torso L0
@@ -30,5 +36,11 @@ class SOLUTION:
         pyrosim.Send_Motor_Neuron( name = 4 , jointName = "Torso_FrontLeg")
 
         for currentRow in range(0,3): #iterating over sensors
-            for currentColumn in range(3, 5): #iterating over motors\
-                pyrosim.Send_Synapse(sourceNeuronName= currentRow, targetNeuronName= currentColumn, weight = self.weights[currentRow][currentColumn])
+            for currentColumn in range(0,2): #iterating over motors\
+                pyrosim.Send_Synapse(sourceNeuronName= currentRow, targetNeuronName= currentColumn + 3, weight = self.weights[currentRow][currentColumn])
+
+    def Evaluate(self):
+        self.Create_World()
+        self.Create_Body()
+        self.Create_Brain()
+        # os.system("py simulate.py")
