@@ -5,4 +5,5 @@ from hillclimber import HILL_CLIMBER
 #     os.system("py generate.py")
 #     os.system("py simulate.py")
 hc = HILL_CLIMBER()
+hc.Evolve()
 
