@@ -23,13 +23,16 @@ class SIMULATION:
 
 
     def Run(self):
-        for t in range(1000):
+        for t in range(100):
             p.stepSimulation()
             self.robot.Sense(t)
             self.robot.Think()
             self.robot.Act(t)
 
             time.sleep(1/60) 
+
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()
 
 
     def __del__(self):
