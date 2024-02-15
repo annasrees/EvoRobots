@@ -3,12 +3,13 @@ import constants as c
 import copy
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
+        self.nextAvailableID = 0.0
         populationSize = 2
         self.parents = {}
         # MIGHT BE populationSize - 1
         for i in range(populationSize):
-            self.parents[i] = SOLUTION()
-
+            self.parents[i] = SOLUTION(self.nextAvailableID)
+            self.nextAvailableID += 1
 
         
     def Evolve(self):
@@ -32,6 +33,8 @@ class PARALLEL_HILL_CLIMBER:
 
     def Spawn(self):
         self.child = copy.deepcopy(self.parent)
+        self.child.Set_ID(self.nextAvailableID)
+        self.nextAvailableID += 1
 
     def Mutate(self):
         self.child.Mutate()

@@ -3,7 +3,8 @@ import pyrosim.pyrosim as pyrosim
 import os
 import random
 class SOLUTION:
-    def __init__(self):
+    def __init__(self, nextAvailableID):
+        self.myID = nextAvailableID
         self.weights = np.random.rand(3,2)
         self.weights = self.weights * 2 - 1
 
@@ -16,7 +17,7 @@ class SOLUTION:
         # else:
         #     os.system("py simulate.py DIRECT")
         # # read in string stored in fitness.txt
-        os.system("py simulate.py " + directOrGUI)
+        os.system("py simulate.py " + directOrGUI + " &")
         fitnessFile = open("fitness.txt", "r")
         fitnessString = fitnessFile.read().strip()
         self.fitness = float(fitnessString)
@@ -58,6 +59,9 @@ class SOLUTION:
         randomRow = random.randint(0,2)
         randomCol = random.randint(0,1)
         self.weights[randomRow,randomCol] = random.random() * 2 - 1
+    
+    def Set_ID(self, nextAvailableID):
+        self.myID = nextAvailableID
 
 
 
