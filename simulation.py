@@ -8,10 +8,14 @@ import pyrosim.pyrosim as pyrosim
 import numpy as np
 import math
 import random
+import sys
 
 class SIMULATION:
-    def __init__(self):
-        self.physicsClient = p.connect(p.DIRECT)
+    def __init__(self, directOrGUI):
+        if(directOrGUI == "DIRECT"):
+            self.physicsClient = p.connect(p.DIRECT)
+        else:
+            self.physicsClient = p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,-9.8)
 

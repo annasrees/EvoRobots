@@ -7,12 +7,16 @@ class SOLUTION:
         self.weights = np.random.rand(3,2)
         self.weights = self.weights * 2 - 1
 
-    def Evaluate(self):
+    def Evaluate(self, directOrGUI):
         self.Create_world()
         self.Create_Body()
         self.Create_Brain()
-        os.system("py simulate.py")
-        # read in string stored in fitness.txt
+        # if(directOrGUI == "GUI"):
+        #     os.system("py simulate.py GUI")
+        # else:
+        #     os.system("py simulate.py DIRECT")
+        # # read in string stored in fitness.txt
+        os.system("py simulate.py " + directOrGUI)
         fitnessFile = open("fitness.txt", "r")
         fitnessString = fitnessFile.read().strip()
         self.fitness = float(fitnessString)
