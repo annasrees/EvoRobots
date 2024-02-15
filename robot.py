@@ -49,11 +49,11 @@ class ROBOT:
     def Act(self, t):
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
-                print(self.motors)
+                # print(self.motors)
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 desiredAngle = self.nn.Get_Value_Of(neuronName)
-                print("desired angle:")
-                print(desiredAngle)
+                # print("desired angle:")
+                # print(desiredAngle)
                 # got rid of if statement
                 motor_to_set = self.motors.get(jointName)
                 motor_to_set.Set_Value(self, desiredAngle)
@@ -74,6 +74,6 @@ class ROBOT:
         file = open("fitness.txt", "w")
         file.write(str(xCoordinateOfLinkZero))
         file.close()
-        print(xCoordinateOfLinkZero)
-        exit()
+        # print(xCoordinateOfLinkZero)
+        # exit()
 
