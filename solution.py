@@ -3,7 +3,8 @@ import pyrosim.pyrosim as pyrosim
 import os
 import random
 class SOLUTION:
-    def __init__(self):
+    def __init__(self, nextAvailableID):
+        self.myID = nextAvailableID
         self.weights = np.random.rand(3,2)
         self.weights = self.weights * 2 - 1
 
@@ -16,7 +17,8 @@ class SOLUTION:
         # else:
         #     os.system("py simulate.py DIRECT")
         # # read in string stored in fitness.txt
-        os.system("start /B py simulate.py " + directOrGUI)
+        # print("py simulate.py " + directOrGUI + str(self.myID))
+        os.system("start /B py simulate.py " + directOrGUI + " " + str(self.myID)) #need to add 3rd arg here   
         fitnessFile = open("fitness.txt", "r")
         fitnessString = fitnessFile.read().strip()
         self.fitness = float(fitnessString)
@@ -39,7 +41,7 @@ class SOLUTION:
         pyrosim.End()
 
     def Create_Brain(self):
-        pyrosim.Start_NeuralNetwork("brain.nndf")
+        pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
         # sensor value comes back -1.0 -> causing issues!
         pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
         pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLeg")
@@ -58,6 +60,10 @@ class SOLUTION:
         randomRow = random.randint(0,2)
         randomCol = random.randint(0,1)
         self.weights[randomRow,randomCol] = random.random() * 2 - 1
+
+    def Set_ID(self, nextAvailableID):
+        self.myID = nextAvailableID
+
 
 
 

@@ -6,16 +6,18 @@ import pyrosim.pyrosim as pyrosim
 import numpy as np
 from constants import CONSTANTS as c
 from pyrosim.neuralNetwork import NEURAL_NETWORK
+import os
 
 class ROBOT:
-    def __init__(self, sensors, motors):
+    def __init__(self, sensors, motors, solutionID):
 
         # empty dictionaries
         self.robotId = p.loadURDF("body.urdf")
         pyrosim.Prepare_To_Simulate(self.robotId)
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
-        self.nn = NEURAL_NETWORK("brain.nndf")
+        self.nn = NEURAL_NETWORK("brain" + solutionID + ".nndf")
+        os.system("del brain" + str(solutionID) + ".nndf") #this step isn't working
 
     def Prepare_To_Sense(self):
         self.sensors = {} #FILLs THESE WITH INSTANCES OF SENSORS
