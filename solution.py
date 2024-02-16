@@ -16,7 +16,7 @@ class SOLUTION:
         # else:
         #     os.system("py simulate.py DIRECT")
         # # read in string stored in fitness.txt
-        os.system("py simulate.py " + directOrGUI)
+        os.system("start /B py simulate.py " + directOrGUI)
         fitnessFile = open("fitness.txt", "r")
         fitnessString = fitnessFile.read().strip()
         self.fitness = float(fitnessString)
