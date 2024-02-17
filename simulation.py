@@ -11,7 +11,7 @@ import random
 import sys
 
 class SIMULATION:
-    def __init__(self, directOrGUI):
+    def __init__(self, directOrGUI, solutionID):
         self.directOrGUI = directOrGUI
         if(self.directOrGUI == "DIRECT"):
             self.physicsClient = p.connect(p.DIRECT)
@@ -23,7 +23,7 @@ class SIMULATION:
         p.loadSDF("world.sdf")
         self.planeId = p.loadURDF("plane.urdf")
         self.world = WORLD()
-        self.robot = ROBOT(2, 2)
+        self.robot = ROBOT(2, 2, solutionID)
 
 
 
@@ -35,10 +35,10 @@ class SIMULATION:
             self.robot.Act(t)
             if(self.directOrGUI == "GUI"):
                 time.sleep(1/60) 
+        # self.Get_Fitness()
 
     def Get_Fitness(self):
         self.robot.Get_Fitness()
-
 
     def __del__(self):
         p.disconnect()

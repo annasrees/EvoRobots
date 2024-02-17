@@ -2,6 +2,7 @@ import numpy as np
 import pyrosim.pyrosim as pyrosim
 import os
 import random
+import time
 class SOLUTION:
     def __init__(self, nextAvailableID):
         self.myID = nextAvailableID
@@ -9,6 +10,27 @@ class SOLUTION:
         self.weights = self.weights * 2 - 1
 
     def Evaluate(self, directOrGUI):
+        pass
+        # self.Create_world()
+        # self.Create_Body()
+        # self.Create_Brain()
+        # if(directOrGUI == "GUI"):
+        #     os.system("py simulate.py GUI")
+        # else:
+        #     os.system("py simulate.py DIRECT")
+        # # read in string stored in fitness.txt
+        # print("py simulate.py " + directOrGUI + str(self.myID))
+        # os.system("start /B py simulate.py " + directOrGUI + " " + str(self.myID)) 
+        # fitnessFileName = "fitness" + str(self.myID) + ".txt"
+        # while not os.path.exists(fitnessFileName):
+        #     time.sleep(0.01)
+        # fitnessFile = open("fitness" + str(self.myID) + ".txt", "r")
+        # fitnessString = fitnessFile.read().strip()
+        # self.fitness = float(fitnessString)
+        # print(self.fitness)
+        # fitnessFile.close()
+
+    def Start_Simulation(self, directOrGUI):
         self.Create_world()
         self.Create_Body()
         self.Create_Brain()
@@ -18,11 +40,18 @@ class SOLUTION:
         #     os.system("py simulate.py DIRECT")
         # # read in string stored in fitness.txt
         # print("py simulate.py " + directOrGUI + str(self.myID))
-        os.system("start /B py simulate.py " + directOrGUI + " " + str(self.myID)) #need to add 3rd arg here   
-        fitnessFile = open("fitness.txt", "r")
+        os.system("start /B py simulate.py " + directOrGUI + " " + str(self.myID)) 
+
+    def Wait_For_Simulation_To_End(self):
+        fitnessFileName = "Fitness" + str(self.myID) + ".txt"
+        while not os.path.exists(fitnessFileName):
+            time.sleep(0.01)
+        fitnessFile = open(fitnessFileName, "r")
         fitnessString = fitnessFile.read().strip()
         self.fitness = float(fitnessString)
         fitnessFile.close()
+        os.remove(fitnessFileName)
+
 
     def Create_world(self):
         pyrosim.Start_SDF("world.sdf") 

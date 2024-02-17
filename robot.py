@@ -7,10 +7,11 @@ import numpy as np
 from constants import CONSTANTS as c
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 import os
+import time
 
 class ROBOT:
     def __init__(self, sensors, motors, solutionID):
-
+        self.solutionID = solutionID
         # empty dictionaries
         self.robotId = p.loadURDF("body.urdf")
         pyrosim.Prepare_To_Simulate(self.robotId)
@@ -73,8 +74,11 @@ class ROBOT:
         stateOfLinkZero = p.getLinkState(self.robotId,0)
         positionOfLinkZero = stateOfLinkZero[0]
         xCoordinateOfLinkZero = positionOfLinkZero[0]
-        file = open("fitness.txt", "w")
+        file = open("tmp" + str(self.solutionID) + ".txt", "w")
         file.write(str(xCoordinateOfLinkZero))
+        file.close()
+        print(xCoordinateOfLinkZero)
+        os.rename("tmp"+str(self.solutionID)+".txt" , "Fitness"+str(self.solutionID)+".txt")
         file.close()
         # print(xCoordinateOfLinkZero)
         # exit()
