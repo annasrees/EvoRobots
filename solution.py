@@ -3,6 +3,7 @@ import pyrosim.pyrosim as pyrosim
 import os
 import random
 import time
+import subprocess
 class SOLUTION:
     def __init__(self, nextAvailableID):
         self.myID = nextAvailableID
@@ -34,21 +35,29 @@ class SOLUTION:
         self.Create_world()
         self.Create_Body()
         self.Create_Brain()
-        # if(directOrGUI == "GUI"):
-        #     os.system("py simulate.py GUI")
-        # else:
-        #     os.system("py simulate.py DIRECT")
-        # # read in string stored in fitness.txt
-        # print("py simulate.py " + directOrGUI + str(self.myID))
-        os.system("start /B py simulate.py " + directOrGUI + " " + str(self.myID)) 
+        if(directOrGUI == "DIRECT"):
+            os.system("start /B py simulate.py " + directOrGUI + " " + str(self.myID))
+        else:
+            os.system("py simulate.py " + directOrGUI + " " + str(self.myID))
+        # subprocess.run(["python", "simulate.py", directOrGUI, str(self.myID)])
+         
 
     def Wait_For_Simulation_To_End(self):
         fitnessFileName = "Fitness" + str(self.myID) + ".txt"
         while not os.path.exists(fitnessFileName):
             time.sleep(0.01)
-        fitnessFile = open(fitnessFileName, "r")
-        fitnessString = fitnessFile.read().strip()
-        self.fitness = float(fitnessString)
+        # fitnessFile = open(fitnessFileName, "r")
+        # fitnessString = fitnessFile.read().strip()
+        # self.fitness = float(fitnessString)
+
+        while True:
+            try:
+                with open(fitnessFileName, "r") as fitnessFile:
+                    fitnessString = fitnessFile.read().strip()
+                    self.fitness = float(fitnessString)
+                break
+            except PermissionError:
+                time.sleep(0.01)
         fitnessFile.close()
         os.remove(fitnessFileName)
 

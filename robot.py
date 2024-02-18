@@ -79,7 +79,7 @@ class ROBOT:
         file.close()
         print(xCoordinateOfLinkZero)
         os.rename("tmp"+str(self.solutionID)+".txt" , "Fitness"+str(self.solutionID)+".txt")
-        file.close()
+        # file.close()
         # print(xCoordinateOfLinkZero)
         # exit()
 

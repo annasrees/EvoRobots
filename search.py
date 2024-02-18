@@ -5,8 +5,10 @@ from parallelHillClimber import PARALLEL_HILL_CLIMBER
 #     os.system("py generate.py")
 #     os.system("py simulate.py")
 phc = PARALLEL_HILL_CLIMBER()
+print("phc initialized")
 phc.Evolve()
+print("\n phc evolved. \n")
 phc.Show_best()
-print("simulation complete!")
+print("phc has shown best. Complete")
 
 

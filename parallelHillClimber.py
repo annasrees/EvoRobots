@@ -6,7 +6,7 @@ class PARALLEL_HILL_CLIMBER:
     def __init__(self):
         os.system("del brain*.nndf")
         os.system("del fitness*.nndf")
-        populationSize = 2
+        populationSize = 10
         self.nextAvailableID = 0
         self.parents = {}
         for i in range(populationSize):
@@ -16,8 +16,6 @@ class PARALLEL_HILL_CLIMBER:
         
     def Evolve(self):
         self.Evaluate(self.parents)
-        for i in range(len(self.parents)):
-            print(self.parents[i].fitness)
 
         # for i in range(len(self.parents)):
         #     self.parents[i].Start_Simulation('DIRECT')
@@ -25,6 +23,7 @@ class PARALLEL_HILL_CLIMBER:
         numberOfGenerations = 10
         for currentGeneration in range(numberOfGenerations):
             self.Evolve_For_One_Generation()
+            currentGeneration += 1
         # for i in range(len(self.parents)):
         #     self.parents[i].Wait_For_Simulation_To_End()
         #     print(self.parents[i].fitness)
@@ -35,11 +34,10 @@ class PARALLEL_HILL_CLIMBER:
         self.Mutate()
 
         self.Evaluate(self.children)
-        exit()
 
-        # self.Print()
+        self.Print()
 
-        # self.Select()
+        self.Select()
 
     def Spawn(self):
         self.children = {}
@@ -58,23 +56,38 @@ class PARALLEL_HILL_CLIMBER:
         # self.child.Mutate()
 
     def Select(self):
-        if(self.child.fitness > self.parent.fitness):
-            self.parent = self.child
+        for key in self.parents.keys():
+            if(self.children[key].fitness < self.parents[key].fitness):
+                self.parents[key] = self.children[key]
 
     def Print(self):
-        print("Parent vs Child fitness: ", self.parent.fitness,  ", ",  self.child.fitness)
+        print("\n")
+        for key in self.parents.keys():
+            print("Parent vs Child fitness: ", self.parents[key].fitness,  ", ",  self.children[key].fitness)
+        print("\n")
 
     def Show_best(self):
-        pass
         # self.parent.Evaluate('GUI')
-    
+    # finding parent w lowest fitness
+        # initializing to first item in list
+        min_val = self.parents[0].fitness
+        min_key = 0
+        for key in self.parents.keys():
+            fitness = self.parents[key].fitness
+            # print(fitness)
+            if fitness < min_val:
+                min_key = key
+                min_val = fitness
+        self.parents[min_key].Start_Simulation("GUI")
+
+
     def Evaluate(self, solutions):
         for i in range(len(solutions)):
-            solutions[i].Start_Simulation("GUI")
+            solutions[i].Start_Simulation("DIRECT")
 
         for i in range(len(solutions)):
             solutions[i].Wait_For_Simulation_To_End()
-            print(solutions[i].fitness)
+            # print(solutions[i].fitness)
 
 
 
