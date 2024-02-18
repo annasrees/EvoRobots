@@ -72,11 +72,11 @@ class SOLUTION:
     def Create_Body(self):
         pyrosim.Start_URDF("body.urdf")
 
-        pyrosim.Send_Cube(name="Torso", pos=[1.5,0,1.5] , size=[1, 1, 1]) #torso L0
+        pyrosim.Send_Cube(name="Torso", pos=[0, 0, 1] , size=[1, 1, 1]) #torso L0
         pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [1, 0, 1]) #root link
         pyrosim.Send_Cube(name="BackLeg", pos=[-0.5,0,-0.5] , size=[1, 1, 1])
-        pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [2, 0, 1])
-        pyrosim.Send_Cube(name="FrontLeg", pos=[0.5,0,-0.5] , size=[1, 1, 1])
+        pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [0, 0.5, 1])
+        pyrosim.Send_Cube(name="FrontLeg", pos=[0,0.5,0] , size=[0.2,1,0.2])
 
         pyrosim.End()
 
@@ -93,7 +93,7 @@ class SOLUTION:
         for currentRow in range(0,self.numSensorNeurons): #iterating over sensors
             # check on this it might be wrong
             for currentColumn in range(0,1): #iterating over motors\
-                pyrosim.Send_Synapse(sourceNeuronName= currentRow, targetNeuronName= currentColumn + self.numMotorNeurons, weight = self.weights[currentRow][currentColumn])
+                pyrosim.Send_Synapse(sourceNeuronName= currentRow, targetNeuronName= currentColumn + self.numSensorNeurons, weight = self.weights[currentRow][currentColumn])
 
         pyrosim.End()
         
