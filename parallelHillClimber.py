@@ -5,8 +5,8 @@ import os
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
         os.system("del brain*.nndf")
-        os.system("del fitness*.nndf")
-        populationSize = 10
+        os.system("del Fitness*.nndf")
+        populationSize = 1
         self.nextAvailableID = 0
         self.parents = {}
         for i in range(populationSize):
@@ -20,7 +20,7 @@ class PARALLEL_HILL_CLIMBER:
         # for i in range(len(self.parents)):
         #     self.parents[i].Start_Simulation('DIRECT')
         # self.parent.Evaluate('GUI')
-        numberOfGenerations = 10
+        numberOfGenerations = 1
         for currentGeneration in range(numberOfGenerations):
             self.Evolve_For_One_Generation()
             currentGeneration += 1
