@@ -6,7 +6,7 @@ class PARALLEL_HILL_CLIMBER:
     def __init__(self):
         os.system("del brain*.nndf")
         os.system("del Fitness*.nndf")
-        populationSize = 1
+        populationSize = 10
         self.nextAvailableID = 0
         self.parents = {}
         for i in range(populationSize):
@@ -20,7 +20,7 @@ class PARALLEL_HILL_CLIMBER:
         # for i in range(len(self.parents)):
         #     self.parents[i].Start_Simulation('DIRECT')
         # self.parent.Evaluate('GUI')
-        numberOfGenerations = 1
+        numberOfGenerations = 10
         for currentGeneration in range(numberOfGenerations):
             self.Evolve_For_One_Generation()
             currentGeneration += 1
@@ -57,7 +57,7 @@ class PARALLEL_HILL_CLIMBER:
 
     def Select(self):
         for key in self.parents.keys():
-            if(self.children[key].fitness < self.parents[key].fitness):
+            if(self.children[key].fitness > self.parents[key].fitness):
                 self.parents[key] = self.children[key]
 
     def Print(self):
@@ -67,9 +67,7 @@ class PARALLEL_HILL_CLIMBER:
         print("\n")
 
     def Show_best(self):
-        # self.parent.Evaluate('GUI')
-    # finding parent w lowest fitness
-        # initializing to first item in list
+
         min_val = self.parents[0].fitness
         min_key = 0
         for key in self.parents.keys():

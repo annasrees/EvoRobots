@@ -25,7 +25,7 @@ class SIMULATION:
         self.world = WORLD()
         self.robot = ROBOT(2, 2, solutionID)
 
-
+# this is a test :-)
 
     def Run(self):
         for t in range(1000):

@@ -47,23 +47,17 @@ class ROBOT:
             self.motors[jointName] = MOTOR(jointName)
             self.motorValues = np.zeros(1000)
 
-
-        # print(len(self.motors))
     def Act(self, t):
+        motorJointRange = 0.2
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
-                # print(self.motors)
+
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
-                desiredAngle = self.nn.Get_Value_Of(neuronName)
-                # print("desired angle:")
-                # print(desiredAngle)
-                # got rid of if statement
+                desiredAngle = (self.nn.Get_Value_Of(neuronName)) * motorJointRange
+
                 motor_to_set = self.motors.get(jointName)
                 motor_to_set.Set_Value(self, desiredAngle)
-                # print(neuronName + ", " + jointName)
-                # print(desiredAngle)
-        # for i in self.motors:
-        #     self.motors[i].Set_Value(self, t)
+
 
 
     def Think(self):
@@ -71,13 +65,16 @@ class ROBOT:
         self.nn.Print()
 
     def Get_Fitness(self):
-        stateOfLinkZero = p.getLinkState(self.robotId,0)
-        positionOfLinkZero = stateOfLinkZero[0]
-        xCoordinateOfLinkZero = positionOfLinkZero[0]
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
+        basePosition = basePositionAndOrientation[0]
+        xPosition = basePosition[0]
+        # basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
+        # basePosition = basePositionAndOrientation[2]
+        # xPosition = basePosition[2] #actually the z position
         file = open("tmp" + str(self.solutionID) + ".txt", "w")
-        file.write(str(xCoordinateOfLinkZero))
+        file.write(str(xPosition))
         file.close()
-        print(xCoordinateOfLinkZero)
+        print(xPosition)
         os.rename("tmp"+str(self.solutionID)+".txt" , "Fitness"+str(self.solutionID)+".txt")
         # file.close()
         # print(xCoordinateOfLinkZero)
