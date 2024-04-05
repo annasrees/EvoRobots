@@ -37,6 +37,7 @@ class SOLUTION:
         self.Create_world()
         self.Create_Body()
         self.Create_Brain()
+        self.Create_Block()
 
         if(directOrGUI == "DIRECT"):
             os.system("start /B py simulate.py " + directOrGUI + " " + str(self.myID))
@@ -67,13 +68,13 @@ class SOLUTION:
 
     def Create_world(self):
         pyrosim.Start_SDF("world.sdf") 
-        # target object
-        pyrosim.Send_Cube(name="Box", pos=[1, 0, 1.5] , size=[0.5, 0.5, 3]) 
+
         pyrosim.End()
 
     def Create_Body(self):
         pyrosim.Start_URDF("body.urdf")
 
+        # # QUADRUPED
         # pyrosim.Send_Cube(name="Torso", pos=[0, 0, 1] , size=[1, 1, 1]) #torso L0
         # pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [0, -0.5, 1], jointAxis = "1 0 0") #root link
         # pyrosim.Send_Cube(name="BackLeg", pos=[0, -0.5, 0] , size=[0.2,1,0.2])
@@ -165,6 +166,13 @@ class SOLUTION:
                 pyrosim.Send_Synapse(sourceNeuronName= currentRow, targetNeuronName= currentColumn + self.numSensorNeurons, weight = self.weights[currentRow][currentColumn])
 
         pyrosim.End()
+
+    def Create_Block(self):
+        pyrosim.Start_URDF("block.urdf")
+        pyrosim.Send_Cube(name="Block", pos=[1, 0, 1.5] , size=[0.5, 0.5, 3])
+        pyrosim.End()
+
+
 
     def Mutate(self):
         randomRow = random.randint(0,self.numSensorNeurons - 1)

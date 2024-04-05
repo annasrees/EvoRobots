@@ -13,6 +13,7 @@ class ROBOT:
     def __init__(self, sensors, motors, solutionID):
         self.solutionID = solutionID
         # empty dictionaries
+        self.blockId = None  # Initialize block ID as None
         self.robotId = p.loadURDF("body.urdf")
         pyrosim.Prepare_To_Simulate(self.robotId)
         self.Prepare_To_Sense()
@@ -25,6 +26,9 @@ class ROBOT:
         for linkName in pyrosim.linkNamesToIndices:
             # creates an instance of SENSOR class, one for each link
             self.sensors[linkName] = SENSOR(linkName)
+
+    def set_block_id(self, blockId):
+        self.blockId = blockId 
 
     def Sense(self, t):
         for i in self.sensors:
@@ -65,7 +69,14 @@ class ROBOT:
         self.nn.Print()
 
     def Get_Fitness(self):
-        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
+        '''
+        block_bot_distance = 0 # distance between block and bot
+        arm_pos = 0 #block pos - arm pos position of arms relative to block
+        body_pos = 0 #block pos - body pos; position of body relative to block
+        fitness = (some weight) * (block_bot_distance) + (another weight) * (arm_pos) + (another weight) * (body pos)
+        '''
+
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId) #body position
         basePosition = basePositionAndOrientation[0]
         xPosition = basePosition[0]
         # basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
