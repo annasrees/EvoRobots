@@ -37,6 +37,7 @@ class SOLUTION:
         self.Create_world()
         self.Create_Body()
         self.Create_Brain()
+
         if(directOrGUI == "DIRECT"):
             os.system("start /B py simulate.py " + directOrGUI + " " + str(self.myID))
         else:
@@ -66,7 +67,8 @@ class SOLUTION:
 
     def Create_world(self):
         pyrosim.Start_SDF("world.sdf") 
-        pyrosim.Send_Cube(name="Box", pos=[4, 4, 0.5] , size=[1, 1, 1]) #position changed so out of way; module E step 20   
+        # target object
+        pyrosim.Send_Cube(name="Box", pos=[1, 0, 1.5] , size=[0.5, 0.5, 3]) 
         pyrosim.End()
 
     def Create_Body(self):
@@ -114,11 +116,11 @@ class SOLUTION:
         #RUL
         pyrosim.Send_Cube(name="RightUpperLeg", pos=[0,0.1,-0.25] , size=[0.2,0.2,1.0])
         #LUL-LLL
-        pyrosim.Send_Joint( name = "LeftUpperLeg_LeftLowerLeg" , parent= "LeftUpperLeg" , child = "LeftLowerLeg" , type = "revolute", position = [0, 0, -1], jointAxis = "1 0 0")
+        pyrosim.Send_Joint( name = "LeftUpperLeg_LeftLowerLeg" , parent= "LeftUpperLeg" , child = "LeftLowerLeg" , type = "revolute", position = [0, 0, -1], jointAxis = "0 1 0")
         #LLL
         pyrosim.Send_Cube(name="LeftLowerLeg", pos=[0,-0.05,0] , size=[0.2,0.2,0.75])
                 #RUL-RLL
-        pyrosim.Send_Joint( name = "RightUpperLeg_RightLowerLeg" , parent= "RightUpperLeg" , child = "RightLowerLeg" , type = "revolute", position = [0, 0, -1], jointAxis = "1 0 0")
+        pyrosim.Send_Joint( name = "RightUpperLeg_RightLowerLeg" , parent= "RightUpperLeg" , child = "RightLowerLeg" , type = "revolute", position = [0, 0, -1], jointAxis = "0 1 0")
         #RLL
         pyrosim.Send_Cube(name="RightLowerLeg", pos=[0,0.05,0] , size=[0.2,0.2,0.75])
                 #LUA-LLA
@@ -163,8 +165,6 @@ class SOLUTION:
                 pyrosim.Send_Synapse(sourceNeuronName= currentRow, targetNeuronName= currentColumn + self.numSensorNeurons, weight = self.weights[currentRow][currentColumn])
 
         pyrosim.End()
-
-        
 
     def Mutate(self):
         randomRow = random.randint(0,self.numSensorNeurons - 1)
