@@ -6,6 +6,7 @@ class PARALLEL_HILL_CLIMBER:
     def __init__(self):
         os.system("del brain*.nndf")
         os.system("del Fitness*.nndf")
+        os.system("del Fitness*.txt")
         populationSize = 10
         self.nextAvailableID = 0
         self.parents = {}

@@ -25,15 +25,11 @@ class SIMULATION:
         self.world = WORLD()
         self.robot = ROBOT(2, 2, solutionID)
 
-        #initializing block
-        # block_position = [1, 0, 1.5]  # Example position
-        # block_size = [0.5, 0.5, 3]  # Example size
-        # self.blockId = p.loadURDF("block.urdf", block_position, useFixedBase=True, globalScaling=block_size)
-        # pyrosim.Send_Cube(name="Block", pos=[1, 0, 1.5] , size=[0.5, 0.5, 3]) 
-        # Pass block ID to the robot for further reference
         self.blockId = p.loadURDF("block.urdf")
         self.robot.set_block_id(self.blockId)        
         # pyrosim.Send_Cube(name="Block", pos=[1, 0, 1.5] , size=[0.5, 0.5, 3]) 
+
+        self.fitnesses = []
 
 # this is a test :-)
 
