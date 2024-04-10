@@ -88,7 +88,7 @@ class ROBOT:
         basePosition = block_position[0]
         blockXPosition = basePosition[0]
         # Not sure i need this
-        # blockYPosition = basePosition[1]
+        #blockYPosition = basePosition[1] #STAY UPRIGHT
         # blockZPosition = basePosition[2]
 
         armJointNames = ["LeftUpperArm_LeftLowerArm", "RightUpperArm_RightLowerArm"]
@@ -121,17 +121,32 @@ class ROBOT:
         botPositionAndOrientation = p.getBasePositionAndOrientation(self.robotId) #body position
         basePosition = botPositionAndOrientation[0]
         botXPosition = basePosition[0]
+        botYPosition = basePosition[1]
 
+        # WRAP FACTOR
+        wrapFactor = 0
 
+        # bodyBlockDifference = botXPosition - blockXPosition
+        # armsBlockDifference = avgArmPosition - blockXPosition #might need to make 2 separate things for the 2 elbows tbd
+
+        if (botXPosition < blockXPosition and avgArmPosition > blockXPosition):
+            wrapFactor = 1
+        elif(botXPosition > blockXPosition and avgArmPosition < blockXPosition):
+            wrapFactor = -1
+        else: 
+            wrapFactor = 1
+
+        # positive enforcement for bot's ability to wrap around the block AND stay upright
+        fitnessFunction = wrapFactor + botYPosition
 
         file = open("tmp" + str(self.solutionID) + ".txt", "w")
         # file.write(str(blockXPosition) + "," + str(botXPosition) + "," + str(avgArmPosition))
         # file.close()
         # print(str(blockXPosition) + "," + str(botXPosition) + "," + str(avgArmPosition))
         # os.rename("tmp"+str(self.solutionID)+".txt" , "Fitness"+str(self.solutionID)+".txt")
-        file.write(str(botXPosition)) #TEMPORARY
+        file.write(str(fitnessFunction)) #TEMPORARY
         file.close()
-        print((botXPosition))
+        print((fitnessFunction))
         os.rename("tmp"+str(self.solutionID)+".txt" , "Fitness"+str(self.solutionID)+".txt")
         file.close()
         # print(xCoordinateOfLinkZero)

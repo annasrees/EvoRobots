@@ -125,11 +125,11 @@ class SOLUTION:
         #RLL
         pyrosim.Send_Cube(name="RightLowerLeg", pos=[0,0.05,0] , size=[0.2,0.2,0.75])
                 #LUA-LLA
-        pyrosim.Send_Joint( name = "LeftUpperArm_LeftLowerArm" , parent= "LeftUpperArm" , child = "LeftLowerArm" , type = "revolute", position = [0, -1, 0], jointAxis = "0 1 0")
+        pyrosim.Send_Joint( name = "LeftUpperArm_LeftLowerArm" , parent= "LeftUpperArm" , child = "LeftLowerArm" , type = "revolute", position = [0, -1, 0], jointAxis = "1 1 0")
         #LLA
         pyrosim.Send_Cube(name="LeftLowerArm", pos=[0,0,0] , size=[0.2,0.75,0.2])
                 #RUA-RLA
-        pyrosim.Send_Joint( name = "RightUpperArm_RightLowerArm" , parent= "RightUpperArm" , child = "RightLowerArm" , type = "revolute", position = [0, 1, 0], jointAxis = "0 1 0")
+        pyrosim.Send_Joint( name = "RightUpperArm_RightLowerArm" , parent= "RightUpperArm" , child = "RightLowerArm" , type = "revolute", position = [0, 1, 0], jointAxis = "1 1 0")
         #RLA
         pyrosim.Send_Cube(name="RightLowerArm", pos=[0,0,0] , size=[0.2,0.75,0.2])
         pyrosim.End()

@@ -18,7 +18,7 @@ class PARALLEL_HILL_CLIMBER:
     def Evolve(self):
         self.Evaluate(self.parents)
 
-        numberOfGenerations = 1 #changed from 10
+        numberOfGenerations = 10 #changed from 10
         for currentGeneration in range(numberOfGenerations):
             self.Evolve_For_One_Generation()
             currentGeneration += 1
@@ -71,7 +71,7 @@ class PARALLEL_HILL_CLIMBER:
         for key in self.parents.keys():
             fitness = self.parents[key].fitness
             # print(fitness)
-            if fitness < min_val:
+            if fitness > min_val:
                 min_key = key
                 min_val = fitness
         self.parents[min_key].Start_Simulation("GUI")
