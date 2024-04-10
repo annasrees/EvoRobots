@@ -66,14 +66,14 @@ class PARALLEL_HILL_CLIMBER:
 
     def Show_best(self):
 
-        min_val = self.parents[0].fitness
+        max_val = self.parents[0].fitness
         min_key = 0
         for key in self.parents.keys():
             fitness = self.parents[key].fitness
             # print(fitness)
-            if fitness > min_val:
-                min_key = key
-                min_val = fitness
+            if fitness > max_val:
+                max_val = key
+                max_val = fitness
         self.parents[min_key].Start_Simulation("GUI")
 
 
