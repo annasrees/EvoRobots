@@ -55,8 +55,12 @@ class PARALLEL_HILL_CLIMBER:
 
     def Select(self):
         for key in self.parents.keys():
+            print("child: ", self.children[key].fitness)
+            print("parent: ", self.parents[key].fitness)
             if(self.children[key].fitness > self.parents[key].fitness):
                 self.parents[key] = self.children[key]
+                print("parent: ", self.parents[key].fitness)
+
 
     def Print(self):
         print("\n")

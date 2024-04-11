@@ -114,9 +114,10 @@ class ROBOT:
             self.jointIndices[joint] = joint
 
         avgArmPosition = 0
+        relArmPosition = 0
         for i in range(len(armJointPositions)):
-            avgArmPosition += armJointPositions[i]
-        avgArmPosition = avgArmPosition / (len(armJointPositions))
+            relArmPosition += armJointPositions[i] - blockXPosition
+        avgArmPosition = relArmPosition / (len(armJointPositions)) 
 
         botPositionAndOrientation = p.getBasePositionAndOrientation(self.robotId) #body position
         basePosition = botPositionAndOrientation[0]
@@ -129,15 +130,19 @@ class ROBOT:
         # bodyBlockDifference = botXPosition - blockXPosition
         # armsBlockDifference = avgArmPosition - blockXPosition #might need to make 2 separate things for the 2 elbows tbd
 
-        if (botXPosition < blockXPosition and avgArmPosition > blockXPosition):
+        relativeBotPos = botXPosition - blockXPosition
+
+        if (relativeBotPos < blockXPosition and avgArmPosition > blockXPosition):
             wrapFactor = 1
-        elif(botXPosition > blockXPosition and avgArmPosition < blockXPosition):
-            wrapFactor = -1
+        elif(relativeBotPos > blockXPosition and avgArmPosition < blockXPosition):
+            wrapFactor = 1
         else: 
             wrapFactor = 1
 
         # positive enforcement for bot's ability to wrap around the block AND stay upright
-        fitnessFunction = wrapFactor + botYPosition
+            #adding weight of 2 to wrap factor
+        fitnessFunction = 0
+        fitnessFunction = (5 * wrapFactor) + botYPosition - abs(relativeBotPos) - abs(avgArmPosition)
 
         file = open("tmp" + str(self.solutionID) + ".txt", "w")
         # file.write(str(blockXPosition) + "," + str(botXPosition) + "," + str(avgArmPosition))
