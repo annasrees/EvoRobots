@@ -7,7 +7,7 @@ class PARALLEL_HILL_CLIMBER:
         os.system("del brain*.nndf")
         os.system("del Fitness*.nndf")
         os.system("del Fitness*.txt")
-        populationSize = 2
+        populationSize = 1
         self.nextAvailableID = 0
         self.parents = {}
         for i in range(populationSize):

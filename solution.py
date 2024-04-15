@@ -138,11 +138,11 @@ class SOLUTION:
         # #torso
         pyrosim.Send_Cube(name="Torso", pos=[0, 0, 2] , size=[1, 1, 1])
         #T-LUA joint
-        pyrosim.Send_Joint(name = "Torso_LeftShoulder", parent = "Torso", child = "LeftShoulder", type = "revolute", position = [0, -0.5, 2.5], jointAxis= "1 0 1")
+        pyrosim.Send_Joint(name = "Torso_LeftShoulder", parent = "Torso", child = "LeftShoulder", type = "revolute", position = [0, -0.5, 2.5], jointAxis= "1 0 0")
 
         pyrosim.Send_Cube(name="LeftShoulder", pos=[0, -0.2, -0.1] , size=[0.2, 0.4, 0.2])
 
-        pyrosim.Send_Joint(name = "Torso_RightShoulder", parent = "Torso", child = "RightShoulder", type = "revolute", position = [0, 0.5, 2.5], jointAxis= "1 0 1")
+        pyrosim.Send_Joint(name = "Torso_RightShoulder", parent = "Torso", child = "RightShoulder", type = "revolute", position = [0, 0.5, 2.5], jointAxis= "1 0 0")
 
         pyrosim.Send_Cube(name="RightShoulder", pos=[0, 0.2, -0.1] , size=[0.2, 0.4, 0.2])
 
@@ -158,11 +158,11 @@ class SOLUTION:
         #H
         pyrosim.Send_Cube(name="Head", pos=[0,0,0.1] , size=[0.2,0.2,0.2])
         #T-LUL
-        pyrosim.Send_Joint( name = "Torso_LeftUpperLeg" , parent= "Torso" , child = "LeftUpperLeg" , type = "revolute", position = [0, -0.5, 1.5], jointAxis = "1 0 0") #root link
+        pyrosim.Send_Joint( name = "Torso_LeftUpperLeg" , parent= "Torso" , child = "LeftUpperLeg" , type = "revolute", position = [0, -0.5, 1.5], jointAxis = "0 1 0") #root link
         #LUL
         pyrosim.Send_Cube(name="LeftUpperLeg", pos=[0,-0.2,-0.25] , size=[0.4,0.4,0.75])
                 #T-RUL
-        pyrosim.Send_Joint( name = "Torso_RightUpperLeg" , parent= "Torso" , child = "RightUpperLeg" , type = "revolute", position = [0, 0.5, 1.5], jointAxis = "1 0 0") #root link
+        pyrosim.Send_Joint( name = "Torso_RightUpperLeg" , parent= "Torso" , child = "RightUpperLeg" , type = "revolute", position = [0, 0.5, 1.5], jointAxis = "0 1 0") #root link
         #RUL
         pyrosim.Send_Cube(name="RightUpperLeg", pos=[0,0.2,-0.25] , size=[0.4,0.4,0.75])
         #LUL-LLL
@@ -174,13 +174,13 @@ class SOLUTION:
         #RLL
         pyrosim.Send_Cube(name="RightLowerLeg", pos=[0,0,-0.25] , size=[0.4,0.4,0.75])
                 #LUA-LLA
-        pyrosim.Send_Joint( name = "LeftUpperArm_LeftLowerArm" , parent= "LeftUpperArm" , child = "LeftLowerArm" , type = "revolute", position = [0, 0, -0.25], jointAxis = "0 1 0")
+        pyrosim.Send_Joint( name = "LeftUpperArm_LeftLowerArm" , parent= "LeftUpperArm" , child = "LeftLowerArm" , type = "revolute", position = [0.1, 0, -0.25], jointAxis = "0 0 1")
         #LLA
-        pyrosim.Send_Cube(name="LeftLowerArm", pos=[0.5,0,-0.2] , size=[0.75,0.2,0.2])
+        pyrosim.Send_Cube(name="LeftLowerArm", pos=[0.4,0,-0.2] , size=[0.75,0.2,0.2])
                 #RUA-RLA
-        pyrosim.Send_Joint( name = "RightUpperArm_RightLowerArm" , parent= "RightUpperArm" , child = "RightLowerArm" , type = "revolute", position = [0, 0, -0.25], jointAxis = "0 1 0")
+        pyrosim.Send_Joint( name = "RightUpperArm_RightLowerArm" , parent= "RightUpperArm" , child = "RightLowerArm" , type = "revolute", position = [0.1, 0, -0.25], jointAxis = "0 0 1")
         #RLA
-        pyrosim.Send_Cube(name="RightLowerArm", pos=[0.5,0,-0.2] , size=[0.75,0.2,0.2])
+        pyrosim.Send_Cube(name="RightLowerArm", pos=[0.4,0,-0.2] , size=[0.75,0.2,0.2])
 
 
         pyrosim.End()
@@ -194,25 +194,25 @@ class SOLUTION:
         pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "RightUpperArm") #2
         pyrosim.Send_Sensor_Neuron(name = 3 , linkName = "RightLowerArm") #3
         pyrosim.Send_Sensor_Neuron(name = 4 , linkName = "LeftLowerArm") #4
-        pyrosim.Send_Sensor_Neuron(name = 5 , linkName = "RightUpperLeg") #5
-        pyrosim.Send_Sensor_Neuron(name = 6 , linkName = "LeftLowerLeg") #6
+        pyrosim.Send_Sensor_Neuron(name = 5 , linkName = "LeftShoulder") #5
+        pyrosim.Send_Sensor_Neuron(name = 6 , linkName = "RightShoulder") #6
         pyrosim.Send_Sensor_Neuron(name = 7 , linkName = "RightLowerLeg") #7
         pyrosim.Send_Sensor_Neuron(name = 8 , linkName = "Head") #8
         pyrosim.Send_Sensor_Neuron(name = 9 , linkName = "LeftUpperLeg") #9
-        pyrosim.Send_Sensor_Neuron(name = 10 , linkName = "LeftShoulder") #9
-        pyrosim.Send_Sensor_Neuron(name = 11 , linkName = "RightShoulder") #9
+        pyrosim.Send_Sensor_Neuron(name = 10 , linkName = "RightUpperLeg") #9
+        pyrosim.Send_Sensor_Neuron(name = 11 , linkName = "LeftLowerLeg") #9
 
         pyrosim.Send_Motor_Neuron(name = 12 , jointName = "Torso_LeftShoulder") #0
         pyrosim.Send_Motor_Neuron(name = 13 , jointName = "Torso_RightShoulder") #1
         pyrosim.Send_Motor_Neuron(name = 14 , jointName = "LeftUpperArm_LeftLowerArm") #2
         pyrosim.Send_Motor_Neuron(name = 15 , jointName = "RightUpperArm_RightLowerArm") #3
-        pyrosim.Send_Motor_Neuron(name = 16 , jointName = "Torso_RightUpperLeg") #4
-        pyrosim.Send_Motor_Neuron(name = 17 , jointName = "LeftUpperLeg_LeftLowerLeg") #5
+        pyrosim.Send_Motor_Neuron(name = 16 , jointName = "LeftShoulder_LeftUpperArm") #4
+        pyrosim.Send_Motor_Neuron(name = 17 , jointName = "RightShoulder_RightUpperArm") #5
         pyrosim.Send_Motor_Neuron(name = 18 , jointName = "RightUpperLeg_RightLowerLeg") #6
         pyrosim.Send_Motor_Neuron(name = 19 , jointName = "Torso_Head") #7
         pyrosim.Send_Motor_Neuron(name = 20, jointName = "Torso_LeftUpperLeg") #8
-        pyrosim.Send_Motor_Neuron(name = 21, jointName = "RightShoulder_RightUpperArm") #8
-        pyrosim.Send_Motor_Neuron(name = 22, jointName = "LeftShoulder_LeftUpperArm") #8
+        pyrosim.Send_Motor_Neuron(name = 21, jointName = "Torso_RightUpperLeg") #8
+        pyrosim.Send_Motor_Neuron(name = 22, jointName = "LeftUpperLeg_LeftLowerLeg") #8
         
 
         for currentRow in range(0,self.numSensorNeurons): #iterating over sensors
@@ -235,8 +235,8 @@ class SOLUTION:
         self.weights[randomRow,randomCol] = random.random() * 2 - 1
 
         #forcibly mutating the arm weights <3
-        randomARMRow = random.randint(1,4)
-        randomARMCol = random.randint(0,3)
+        randomARMRow = random.randint(1,6)
+        randomARMCol = random.randint(0,5)
         self.weights[randomARMRow,randomARMCol] = random.random() * 2 - 1
 
     def Set_ID(self, nextAvailableID):

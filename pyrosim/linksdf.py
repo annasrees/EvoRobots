@@ -16,7 +16,7 @@ class LINK_SDF:
 
         self.depth = 2
 
-        self.inertial  = INERTIAL_SDF()
+        self.inertial  = INERTIAL_SDF(mass)
 
         self.geometry = GEOMETRY_SDF(size)
 
