@@ -168,11 +168,11 @@ class SOLUTION:
         #LUL-LLL
         pyrosim.Send_Joint( name = "LeftUpperLeg_LeftLowerLeg" , parent= "LeftUpperLeg" , child = "LeftLowerLeg" , type = "revolute", position = [0, -0.2, -0.75], jointAxis = "0 1 0")
         #LLL
-        pyrosim.Send_Cube(name="LeftLowerLeg", pos=[0,0,-0.25] , size=[0.4,0.4,0.75])
+        pyrosim.Send_Cube(name="LeftLowerLeg", pos=[0,0,-0.25] , size=[0.4,0.4,0.75], mass= 50.0)
                 #RUL-RLL
         pyrosim.Send_Joint( name = "RightUpperLeg_RightLowerLeg" , parent= "RightUpperLeg" , child = "RightLowerLeg" , type = "revolute", position = [0, 0.2, -0.75], jointAxis = "0 1 0")
         #RLL
-        pyrosim.Send_Cube(name="RightLowerLeg", pos=[0,0,-0.25] , size=[0.4,0.4,0.75])
+        pyrosim.Send_Cube(name="RightLowerLeg", pos=[0,0,-0.25] , size=[0.4,0.4,0.75], mass= 50.0)
                 #LUA-LLA
         pyrosim.Send_Joint( name = "LeftUpperArm_LeftLowerArm" , parent= "LeftUpperArm" , child = "LeftLowerArm" , type = "revolute", position = [0.1, 0, -0.25], jointAxis = "0 0 1")
         #LLA
