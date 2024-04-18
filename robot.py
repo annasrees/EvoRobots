@@ -142,7 +142,9 @@ class ROBOT:
         # positive enforcement for bot's ability to wrap around the block AND stay upright
             #adding weight of 2 to wrap factor
         fitnessFunction = 0
-        fitnessFunction = (5 * wrapFactor) + botYPosition - abs(relativeBotPos) - abs(avgArmPosition)
+        '''fitnessFunction = (5 * wrapFactor) + botYPosition - abs(relativeBotPos) - abs(avgArmPosition)'''
+
+        fitnessFunction = botYPosition
 
         file = open("tmp" + str(self.solutionID) + ".txt", "w")
         # file.write(str(blockXPosition) + "," + str(botXPosition) + "," + str(avgArmPosition))
