@@ -114,11 +114,9 @@ def Send_Cube(name="default",pos=[0,0,0],size=[1,1,1], mass = 1.0):
 
     if filetype == SDF_FILETYPE:
 
-        mass = 1.0
-
         Start_Model(name,pos)
 
-        link = LINK_SDF(name,pos,size, mass)
+        link = LINK_SDF(name,pos,size,mass=mass)
 
         links.append(link)
     else:

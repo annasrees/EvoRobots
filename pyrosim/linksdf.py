@@ -12,6 +12,8 @@ class LINK_SDF:
 
     def __init__(self,name,pos,size, mass):
 
+        self.mass = mass
+
         self.name = name
 
         self.depth = 2
@@ -24,7 +26,6 @@ class LINK_SDF:
 
         self.visual    = VISUAL_SDF(self.geometry)
 
-        self.mass = mass
 
     def Save(self,f):
 
