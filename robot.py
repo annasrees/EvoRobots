@@ -105,7 +105,7 @@ class ROBOT:
 
         relativeBotPos = botXPosition - blockXPosition
 
-        fitnessFunction = botZPosition - relativeBotPos + relArmPosition 
+        fitnessFunction = botZPosition - relativeBotPos + relArmPosition
 
         file = open("tmp" + str(self.solutionID) + ".txt", "w")
         file.write(str(fitnessFunction)) #TEMPORARY

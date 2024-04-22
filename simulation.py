@@ -31,7 +31,6 @@ class SIMULATION:
 
         self.fitnesses = []
 
-# this is a test :-)
 
     def Run(self):
         for t in range(1000):

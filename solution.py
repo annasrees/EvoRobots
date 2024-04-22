@@ -4,6 +4,7 @@ import os
 import random
 import time
 import subprocess
+import pybullet as p
 class SOLUTION:
     def __init__(self, nextAvailableID):
         self.numSensorNeurons = 14
@@ -13,24 +14,6 @@ class SOLUTION:
 
     def Evaluate(self, directOrGUI):
         pass
-        # self.Create_world()
-        # self.Create_Body()
-        # self.Create_Brain()
-        # if(directOrGUI == "GUI"):
-        #     os.system("py simulate.py GUI")
-        # else:
-        #     os.system("py simulate.py DIRECT")
-        # # read in string stored in fitness.txt
-        # print("py simulate.py " + directOrGUI + str(self.myID))
-        # os.system("start /B py simulate.py " + directOrGUI + " " + str(self.myID)) 
-        # fitnessFileName = "fitness" + str(self.myID) + ".txt"
-        # while not os.path.exists(fitnessFileName):
-        #     time.sleep(0.01)
-        # fitnessFile = open("fitness" + str(self.myID) + ".txt", "r")
-        # fitnessString = fitnessFile.read().strip()
-        # self.fitness = float(fitnessString)
-        # print(self.fitness)
-        # fitnessFile.close()
 
     def Start_Simulation(self, directOrGUI):
         self.Create_world()
@@ -146,6 +129,7 @@ class SOLUTION:
 
         pyrosim.Send_Joint(name = "RightLowerLeg_RightFoot", parent= "RightLowerLeg" , child = "RightFoot" , type = "revolute", position = [0, 0.2, -0.6], jointAxis = "0 1 0")
         pyrosim.Send_Cube(name = "RightFoot", pos = [0.25,-0.2,0], size = [1, 0.5, 0.05], mass=100.0)
+
         pyrosim.End()
 
 
