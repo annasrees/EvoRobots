@@ -32,9 +32,6 @@ class SOLUTION:
         fitnessFileName = "Fitness" + str(self.myID) + ".txt"
         while not os.path.exists(fitnessFileName):
             time.sleep(0.01)
-        # fitnessFile = open(fitnessFileName, "r")
-        # fitnessString = fitnessFile.read().strip()
-        # self.fitness = float(fitnessString)
 
         while True:
             try:
@@ -101,34 +98,34 @@ class SOLUTION:
         #T-LUL
         pyrosim.Send_Joint( name = "Torso_LeftUpperLeg" , parent= "Torso" , child = "LeftUpperLeg" , type = "revolute", position = [0, -0.5, 1.5], jointAxis = "0 1 0") #root link
         #LUL
-        pyrosim.Send_Cube(name="LeftUpperLeg", pos=[0,-0.2,-0.25] , size=[0.4,0.4,0.75], mass=1.0)
+        pyrosim.Send_Cube(name="LeftUpperLeg", pos=[0,-0.2,-0.25] , size=[0.4,0.4,0.75], mass=10.0)
                 #T-RUL
         pyrosim.Send_Joint( name = "Torso_RightUpperLeg" , parent= "Torso" , child = "RightUpperLeg" , type = "revolute", position = [0, 0.5, 1.5], jointAxis = "0 1 0") #root link
         #RUL
-        pyrosim.Send_Cube(name="RightUpperLeg", pos=[0,0.2,-0.25] , size=[0.4,0.4,0.75], mass=1.0)
+        pyrosim.Send_Cube(name="RightUpperLeg", pos=[0,0.2,-0.25] , size=[0.4,0.4,0.75], mass=10.0)
         #LUL-LLL
         pyrosim.Send_Joint( name = "LeftUpperLeg_LeftLowerLeg" , parent= "LeftUpperLeg" , child = "LeftLowerLeg" , type = "revolute", position = [0, -0.2, -0.75], jointAxis = "0 1 0")
         #LLL
-        pyrosim.Send_Cube(name="LeftLowerLeg", pos=[0,0,-0.25] , size=[0.4,0.4,0.75], mass= 1.0)
+        pyrosim.Send_Cube(name="LeftLowerLeg", pos=[0,0,-0.25] , size=[0.4,0.4,0.75], mass= 15.0)
                 #RUL-RLL
         pyrosim.Send_Joint( name = "RightUpperLeg_RightLowerLeg" , parent= "RightUpperLeg" , child = "RightLowerLeg" , type = "revolute", position = [0, 0.2, -0.75], jointAxis = "0 1 0")
         #RLL
-        pyrosim.Send_Cube(name="RightLowerLeg", pos=[0,0,-0.25] , size=[0.4,0.4,0.75], mass= 1.0)
+        pyrosim.Send_Cube(name="RightLowerLeg", pos=[0,0,-0.25] , size=[0.4,0.4,0.75], mass= 15.0)
                 #LUA-LLA
         pyrosim.Send_Joint( name = "LeftUpperArm_LeftLowerArm" , parent= "LeftUpperArm" , child = "LeftLowerArm" , type = "revolute", position = [0, 0.25, 0], jointAxis = "0 0 1")
         #LLA
-        pyrosim.Send_Cube(name="LeftLowerArm", pos=[0.375,-1.1,-0.1] , size=[0.75,0.2,0.2], mass=1.0) #0.375,-1.1,-0.1
+        pyrosim.Send_Cube(name="LeftLowerArm", pos=[0.5,-1.1,-0.1] , size=[1.0,0.2,0.2], mass=1.0) #0.375,-1.1,-0.1
                 #RUA-RLA
         pyrosim.Send_Joint( name = "RightUpperArm_RightLowerArm" , parent= "RightUpperArm" , child = "RightLowerArm" , type = "revolute", position = [0, 0.25, 0], jointAxis = "0 0 1")
         #RLA
-        pyrosim.Send_Cube(name="RightLowerArm", pos=[0.375,0.6,-0.1] , size=[0.75,0.2,0.2], mass=1.0) #0.35,0.6,-0.1
+        pyrosim.Send_Cube(name="RightLowerArm", pos=[0.5,0.6,-0.1] , size=[1.0,0.2,0.2], mass=1.0) #0.35,0.6,-0.1
 
         #giving him feet...
         pyrosim.Send_Joint(name = "LeftLowerLeg_LeftFoot", parent= "LeftLowerLeg" , child = "LeftFoot" , type = "revolute", position = [0, 0.2, -0.6], jointAxis = "0 1 0")
-        pyrosim.Send_Cube(name = "LeftFoot", pos = [0.25,-0.2,0], size = [1, 0.5, 0.05], mass=100.0)
+        pyrosim.Send_Cube(name = "LeftFoot", pos = [0.25,-0.2,0], size = [.75, 0.5, 0.05], mass=50.0)
 
         pyrosim.Send_Joint(name = "RightLowerLeg_RightFoot", parent= "RightLowerLeg" , child = "RightFoot" , type = "revolute", position = [0, 0.2, -0.6], jointAxis = "0 1 0")
-        pyrosim.Send_Cube(name = "RightFoot", pos = [0.25,-0.2,0], size = [1, 0.5, 0.05], mass=100.0)
+        pyrosim.Send_Cube(name = "RightFoot", pos = [0.25,-0.2,0], size = [.75, 0.5, 0.05], mass=50.0)
 
         pyrosim.End()
 

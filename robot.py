@@ -67,6 +67,7 @@ class ROBOT:
         block_position = p.getBasePositionAndOrientation(self.blockId)
         basePosition = block_position[0]
         blockXPosition = basePosition[0]
+        blockYPosition = basePosition[1]
 
         armJointNames = ["LeftUpperArm_LeftLowerArm", "RightUpperArm_RightLowerArm"]
         self.armJointIndices = []
@@ -84,18 +85,19 @@ class ROBOT:
                 self.armJointIndices.append(i)
 
         armJointPositions = []
+        armJointYPositions = []
         for joint in armJointNames:
             # Find the index of the current joint in armJointNames
             joint_index = armJointNames.index(joint)
             armJointPositions.append(p.getJointState(self.robotId, self.armJointIndices[joint_index])[0])
+            armJointYPositions.append(p.getJointState(self.robotId, self.armJointIndices[joint_index])[1])
             self.jointIndices[joint] = joint
 
         avgArmPosition = 0
         relArmPosition = 0
+        relArmYPosition = 0
         fitnessFunction = 0
-        for i in range(len(armJointPositions)):
-            relArmPosition += armJointPositions[i] - blockXPosition #want arm as far away from body as possible
-        avgArmPosition = relArmPosition / (len(armJointPositions)) 
+
 
         botPositionAndOrientation = p.getBasePositionAndOrientation(self.robotId) #body position
         basePosition = botPositionAndOrientation[0]
@@ -105,7 +107,12 @@ class ROBOT:
 
         relativeBotPos = botXPosition - blockXPosition
 
-        fitnessFunction = botZPosition - relativeBotPos + relArmPosition
+        for i in range(len(armJointPositions)):
+            relArmPosition += armJointPositions[i] - botXPosition #want arm as far away from body as possible
+            relArmYPosition += armJointYPositions[1] - blockYPosition #want arm as close to block as possible
+        avgArmPosition = relArmPosition / (len(armJointPositions)) 
+
+        fitnessFunction = botZPosition - relativeBotPos - relArmYPosition + relArmPosition - relArmYPosition
 
         file = open("tmp" + str(self.solutionID) + ".txt", "w")
         file.write(str(fitnessFunction)) #TEMPORARY

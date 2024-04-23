@@ -7,7 +7,7 @@ class PARALLEL_HILL_CLIMBER:
         os.system("del brain*.nndf")
         os.system("del Fitness*.nndf")
         os.system("del Fitness*.txt")
-        populationSize = 1
+        populationSize = 10
         self.nextAvailableID = 0
         self.parents = {}
         for i in range(populationSize):
@@ -18,7 +18,7 @@ class PARALLEL_HILL_CLIMBER:
     def Evolve(self):
         self.Evaluate(self.parents)
 
-        numberOfGenerations = 1 #changed from 10
+        numberOfGenerations = 10 #changed from 10
         for currentGeneration in range(numberOfGenerations):
             self.Evolve_For_One_Generation()
             currentGeneration += 1
