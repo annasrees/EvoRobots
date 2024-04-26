@@ -12,6 +12,18 @@ class SOLUTION:
         self.myID = nextAvailableID
         self.weights = np.random.rand(self.numSensorNeurons, self.numMotorNeurons) * 2 - 1
 
+        # initializing AB testing
+        self.A_or_B = self.set_AB()
+
+    def set_AB(self):
+        AB = int(self.myID)
+        if self.myID % 2 == 0:
+            AB = "A"
+        else:
+            AB = "B"
+        return AB
+        
+
     def Evaluate(self, directOrGUI):
         pass
 
@@ -19,7 +31,10 @@ class SOLUTION:
         self.Create_world()
         self.Create_Body()
         self.Create_Brain()
-        self.Create_Block()
+        if self.A_or_B =="A":
+            self.Create_Block_A()
+        else:
+            self.Create_Block_B()
 
         if(directOrGUI == "DIRECT"):
             os.system("start /B py simulate.py " + directOrGUI + " " + str(self.myID))
@@ -170,11 +185,15 @@ class SOLUTION:
 
         pyrosim.End()
 
-    def Create_Block(self):
+    def Create_Block_A(self):
         pyrosim.Start_URDF("block.urdf")
         pyrosim.Send_Cube(name="Block", pos=[1, 0, 1.5] , size=[0.5, 0.5, 3], mass=100.0)
         pyrosim.End()
 
+    def Create_Block_B(self):
+        pyrosim.Start_URDF("block.urdf")
+        pyrosim.Send_Cube(name="Block", pos=[1, 0, 5] , size=[0.5, 0.5, 3], mass=100.0) #starting 5 units away
+        pyrosim.End()
 
 
     def Mutate(self):

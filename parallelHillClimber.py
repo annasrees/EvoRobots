@@ -49,17 +49,40 @@ class PARALLEL_HILL_CLIMBER:
 
 
     def Mutate(self):
+        file = open("allRunABData.txt", "w")
         for key in self.parents.keys():
             self.children[key].Mutate()
+            file.write(str(self.children[key].A_or_B) + "," + str(self.children[key].fitness))
         # self.child.Mutate()
+        file.close()
 
     def Select(self):
+        file = open("bestParents.txt", "w")
+        best_in_round = 0
+        best_key = 0
+        best_is_child = True
         for key in self.parents.keys():
             print("child: ", self.children[key].fitness)
             print("parent: ", self.parents[key].fitness)
             if(self.children[key].fitness > self.parents[key].fitness):
                 self.parents[key] = self.children[key]
                 print("parent: ", self.parents[key].fitness)
+            if(self.children[key].fitness > best_in_round):
+                best_in_round = self.children[key].fitness
+                best_key = key
+                best_is_child = True
+
+            if(self.parents[key].fitness > best_in_round):
+                best_in_round = self.parents[key].fitness
+                best_key = key
+                best_is_child = False
+        if best_is_child == True:
+            file.write(str(self.children[best_key].A_or_B) +  "," + str(self.children[best_key].fitness))
+        else:
+            file.write(str(self.parents[best_key].A_or_B) +  "," + str(self.parents[best_key].fitness))
+
+        file.close()
+
 
 
     def Print(self):
@@ -69,7 +92,6 @@ class PARALLEL_HILL_CLIMBER:
         print("\n")
 
     def Show_best(self):
-
         max_val = self.parents[0].fitness
         min_key = 0
         for key in self.parents.keys():
@@ -79,6 +101,7 @@ class PARALLEL_HILL_CLIMBER:
                 max_val = key
                 max_val = fitness
         self.parents[min_key].Start_Simulation("GUI")
+
 
 
     def Evaluate(self, solutions):
