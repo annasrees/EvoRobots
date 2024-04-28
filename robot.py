@@ -112,7 +112,7 @@ class ROBOT:
             relArmYPosition += armJointYPositions[1] - blockYPosition #want arm as close to block as possible
         avgArmPosition = relArmPosition / (len(armJointPositions)) 
 
-        fitnessFunction = botZPosition - relativeBotPos - relArmYPosition + relArmPosition - relArmYPosition
+        fitnessFunction = botZPosition - relativeBotPos - relArmYPosition + relArmPosition
 
         file = open("tmp" + str(self.solutionID) + ".txt", "w")
         file.write(str(fitnessFunction)) #TEMPORARY

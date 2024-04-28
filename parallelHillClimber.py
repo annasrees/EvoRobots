@@ -2,31 +2,35 @@ from solution import SOLUTION
 import constants as c
 import copy
 import os
+import numpy as np
 class PARALLEL_HILL_CLIMBER:
-    def __init__(self):
+    def __init__(self, AB):
         os.system("del brain*.nndf")
         os.system("del Fitness*.nndf")
         os.system("del Fitness*.txt")
         populationSize = 10
+        self.numberOfGenerations = 10 #changed from 10
         self.nextAvailableID = 0
         self.parents = {}
+        self.AorB = AB
+        self.ABMatrix = np.zeros((populationSize, self.numberOfGenerations))
         for i in range(populationSize):
-            self.parents[i] = SOLUTION(self.nextAvailableID)
+            self.currentPop = i
+            self.parents[i] = SOLUTION(self.nextAvailableID, self.AorB)
             self.nextAvailableID += 1
-        # self.parent = SOLUTION()
+        # A/B Testing
+        
         
     def Evolve(self):
-        self.Evaluate(self.parents)
-
-        numberOfGenerations = 10 #changed from 10
-        for currentGeneration in range(numberOfGenerations):
-            self.Evolve_For_One_Generation()
+        self.Evaluate(self.parents)     
+        for currentGeneration in range(self.numberOfGenerations):
+            self.Evolve_For_One_Generation(currentGeneration)
             currentGeneration += 1
-        # for i in range(len(self.parents)):
-        #     self.parents[i].Wait_For_Simulation_To_End()
-        #     print(self.parents[i].fitness)
 
-    def Evolve_For_One_Generation(self):
+            self.writeToABTest(self.ABMatrix)
+        
+
+    def Evolve_For_One_Generation(self, currentGeneration):
         self.Spawn()
 
         self.Mutate()
@@ -36,6 +40,9 @@ class PARALLEL_HILL_CLIMBER:
         self.Print()
 
         self.Select()
+
+        for key in self.parents.keys():
+            self.ABMatrix[key, currentGeneration] = self.parents[key].fitness
 
     def Spawn(self):
         self.children = {}
@@ -52,7 +59,7 @@ class PARALLEL_HILL_CLIMBER:
         file = open("allRunABData.txt", "w")
         for key in self.parents.keys():
             self.children[key].Mutate()
-            file.write(str(self.children[key].A_or_B) + "," + str(self.children[key].fitness))
+            file.write(str(self.children[key].A_or_B) + "," + str(self.children[key].fitness) + "\n")
         # self.child.Mutate()
         file.close()
 
@@ -77,7 +84,7 @@ class PARALLEL_HILL_CLIMBER:
                 best_key = key
                 best_is_child = False
         if best_is_child == True:
-            file.write(str(self.children[best_key].A_or_B) +  "," + str(self.children[best_key].fitness))
+            file.write(str(self.children[best_key].A_or_B) +  "," + str(self.children[best_key].fitness) + "\n")
         else:
             file.write(str(self.parents[best_key].A_or_B) +  "," + str(self.parents[best_key].fitness))
 
@@ -111,6 +118,17 @@ class PARALLEL_HILL_CLIMBER:
         for i in range(len(solutions)):
             solutions[i].Wait_For_Simulation_To_End()
             # print(solutions[i].fitness)
+
+    def writeToABTest(self, ABMatrix):
+        if self.AorB == "A":
+            np.savetxt('AData.txt', ABMatrix)
+            np.save('AData.npy', ABMatrix)
+        else:
+            np.savetxt('BData.txt', ABMatrix)
+            np.save('BData.npy', ABMatrix)
+
+        
+
 
 
 

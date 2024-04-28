@@ -6,22 +6,14 @@ import time
 import subprocess
 import pybullet as p
 class SOLUTION:
-    def __init__(self, nextAvailableID):
+    def __init__(self, nextAvailableID, AorB):
         self.numSensorNeurons = 14
         self.numMotorNeurons = 13
         self.myID = nextAvailableID
         self.weights = np.random.rand(self.numSensorNeurons, self.numMotorNeurons) * 2 - 1
 
         # initializing AB testing
-        self.A_or_B = self.set_AB()
-
-    def set_AB(self):
-        AB = int(self.myID)
-        if self.myID % 2 == 0:
-            AB = "A"
-        else:
-            AB = "B"
-        return AB
+        self.A_or_B = AorB
         
 
     def Evaluate(self, directOrGUI):
@@ -192,7 +184,7 @@ class SOLUTION:
 
     def Create_Block_B(self):
         pyrosim.Start_URDF("block.urdf")
-        pyrosim.Send_Cube(name="Block", pos=[1, 0, 5] , size=[0.5, 0.5, 3], mass=100.0) #starting 5 units away
+        pyrosim.Send_Cube(name="Block", pos=[5, 0, 1.5] , size=[0.5, 0.5, 3], mass=100.0) #starting 5 units away
         pyrosim.End()
 
 
